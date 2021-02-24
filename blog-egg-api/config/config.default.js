@@ -22,7 +22,29 @@ module.exports = appInfo => {
   const userConfig = {
     // myAppName: 'egg',
   };
-
+  config.security = {
+    csrf: {
+      enable: false,
+      domainWhiteList: [ 'http://localhost:8000' ], //允许跨域域名白名单
+    },
+  };
+  userConfig.jwtSecret = 'tootsie';
+  //配置数据库
+  userConfig.mysql  = {
+    client:{
+      //host
+      host:'localhost',
+      //port
+      port:'3306',
+      //username
+      user:'tootsie',
+      //password
+      password:'123456ccc',
+      //database
+      database:'egg'
+    },
+  };
+  userConfig.jwtSecret = 'tootsie';
   return {
     ...config,
     ...userConfig,

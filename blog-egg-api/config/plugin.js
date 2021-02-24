@@ -1,9 +1,11 @@
 'use strict';
 
 /** @type Egg.EggPlugin */
-module.exports = {
-  // had enabled by egg
-  // static: {
-  //   enable: true,
-  // }
-};
+exports.mysql = {
+    package: 'egg-mysql',
+    enable: true,
+}
+exports.cors = {
+    package: 'egg-cors',
+    enable: true,
+}
