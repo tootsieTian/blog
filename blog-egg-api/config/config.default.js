@@ -17,7 +17,6 @@ module.exports = appInfo => {
 
   // add your middleware config here
   config.middleware = [];
-
   // add your user config here
   const userConfig = {
     // myAppName: 'egg',
@@ -38,14 +37,14 @@ module.exports = appInfo => {
     client: {
       // host
       host: 'localhost',
-      // port
+      // portn
       port: '3306',
       // username
-      user: 'tootsie',
+      user: 'admin',
       // password
       password: '123456ccc',
       // database
-      database: 'egg',
+      database: 'blog',
     },
   };
   userConfig.jwtSecret = 'tootsie';
