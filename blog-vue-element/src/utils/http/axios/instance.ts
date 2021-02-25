@@ -42,6 +42,7 @@ instance.interceptors.request.use(
     });
 
     removePending(request);
+
     request.cancelToken = new CancelToken((c) => {
       pending.push({ url: request.url, method: request.method, params: request.params, data: request.data, cancel: c });
     });

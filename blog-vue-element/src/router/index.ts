@@ -1,30 +1,38 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
-// import Home from '../views/Home.vue'
+import { ElMessage } from 'element-plus'
 
 const routes: Array<RouteRecordRaw> = [
-  // {
-  //   path: '/',
-  //   name: 'Home',
-  //   component: Home
-  // },
-  // {
-  //   path: '/about',
-  //   name: 'About',
-  //   // route level code-splitting
-  //   // this generates a separate chunk (about.[hash].js) for this route
-  //   // which is lazy-loaded when the route is visited.
-  //   component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  // },
   {
     path: '/login',
     name: 'Login',
-    component: () => import('../views/admin/login/Index.vue')
-  }
+    component: () => import('../views/admin/login/Index.vue'),
+    meta: {
+      title: '登录',
+    }
+  },
+  {
+    path: '/dashboard',
+    name: 'Dashboard',
+    component: () => import('../views/admin/dashboard/Index.vue'),
+    meta: {
+      title: '仪表盘',
+      requiresAuth: true,
+    },
+  },
 ]
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
+})
+
+router.beforeEach((to, form, next) => {
+  if (to.matched.some(route => route.meta.requiresAuth)) {
+    ElMessage.error("请先登录！");
+    localStorage.getItem("Authorization") ? next() : next('/login');
+  } else {
+    next();
+  }
 })
 
 export default router

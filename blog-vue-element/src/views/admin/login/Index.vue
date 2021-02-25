@@ -40,9 +40,11 @@
         password: ""
       })
       const login = () => {
-        api.user.login(formData).then(res => {
+        api.user.login(formData).then((res) => {
           message(res, ()=> {
             ElMessage.success("登录成功！");
+            // 将cookie存在本地
+            localStorage.setItem("Authorization", res.data);
           })
         })
       }
@@ -80,11 +82,6 @@
             }
         }
     }
-
-    /*.login-box{*/
-    /*    width: 400px;*/
-    /*    !*height: 100px;*!*/
-    /*}*/
     ::v-deep(.el-form) {
         width: 400px;
 

@@ -1,19 +1,20 @@
 import instance from './instance';
 import { AxiosRequest, CustomResponse } from './types';
-
 class Http {
   // 外部传入的baseUrl
   protected baseURL: string;
   constructor(baseURL: string) {
     this.baseURL = baseURL;
   }
+
   // 自定义header头
   protected headers: object = {
     ContentType: 'application/json;charset=UTF-8'
   }
-
   private apiAxios({ baseURL = this.baseURL, headers = this.headers, method, url, data, params, responseType }: AxiosRequest): Promise<CustomResponse> {
-
+    if(localStorage.getItem('Authorization')) {
+      headers.authorization = localStorage.getItem('Authorization');
+    }
     return new Promise((resolve, reject) => {
       instance({
         baseURL,
