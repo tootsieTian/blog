@@ -1,5 +1,7 @@
 <template>
-    <div></div>
+    <div>
+        仪表盘
+    </div>
 </template>
 
 <script lang="ts">

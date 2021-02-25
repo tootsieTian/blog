@@ -11,13 +11,23 @@ const routes: Array<RouteRecordRaw> = [
     }
   },
   {
-    path: '/dashboard',
-    name: 'Dashboard',
-    component: () => import('../views/admin/dashboard/Index.vue'),
+    path: '/admin',
+    name: "Admin",
+    component: () => import('../views/admin/Index.vue'),
     meta: {
-      title: '仪表盘',
       requiresAuth: true,
     },
+    children: [
+      {
+        path: '/dashboard',
+        name: 'Dashboard',
+        component: () => import('../views/admin/dashboard/Index.vue'),
+        meta: {
+          title: '仪表盘',
+          requiresAuth: true,
+        },
+      },
+    ]
   },
 ]
 
@@ -28,8 +38,8 @@ const router = createRouter({
 
 router.beforeEach((to, form, next) => {
   if (to.matched.some(route => route.meta.requiresAuth)) {
-    ElMessage.error("请先登录！");
-    localStorage.getItem("Authorization") ? next() : next('/login');
+
+    localStorage.getItem("Authorization") ? next() : ()=>{ElMessage.error("请先登录！");next('/login')};
   } else {
     next();
   }

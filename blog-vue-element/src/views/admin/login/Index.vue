@@ -31,10 +31,12 @@
   import { message } from '@/utils/index'
   import api from '@/api/index'
   import { ElMessage } from "element-plus";
+  import { useRouter } from "vue-router";
 
   export default defineComponent({
     name: "Login",
     setup() {
+      const router = useRouter()
       const formData = reactive({
         username: "",
         password: ""
@@ -45,6 +47,8 @@
             ElMessage.success("登录成功！");
             // 将cookie存在本地
             localStorage.setItem("Authorization", res.data);
+            router.push({ name:'Dashboard' })
+
           })
         })
       }
