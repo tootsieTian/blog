@@ -1,7 +1,7 @@
 <template>
     <div class="app-container">
         <div class="app-container-header">
-            <el-input placeholder="请输入标题"></el-input>
+            <el-input placeholder="请输入评论内容"></el-input>
             <el-button type="primary" >查找</el-button>
         </div>
         <div class="app-container-body">
@@ -16,7 +16,7 @@
                 </el-table-column>
                 <el-table-column
                         prop="title"
-                        label="标题"
+                        label="用户ip"
                         width="180">
                 </el-table-column>
                 <el-table-column
@@ -43,7 +43,7 @@
   import { defineComponent, reactive } from 'vue'
   import '@/styles/admin/index.scss'
   export default defineComponent({
-    name: "Article",
+    name: "comment",
     setup() {
       const tableData = reactive([{
         createtime: '2016-05-02',

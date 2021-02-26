@@ -1,27 +1,50 @@
-.app-container {
 
-  margin: 15px 0 0 15px;
+$useHeight: 34px; // 按钮、输入框等高度
+$layoutBackground: #ffffff; // 布局背景
+@mixin layoutShadow{ // 布局阴影
+  margin-right: 10px;
+  border-radius: 3px;
+  box-shadow: 0 0 5px #dbdada;
+}
+
+.app-container {
+  padding: 15px 0 0 15px;
+  height: 100vh;
+  background: #f6f6f6;
+  box-sizing: border-box;
 }
 
 .app-container-header {
-  padding: 10px 0;
+  background: $layoutBackground;
+  @include layoutShadow;
+  padding: 10px;
   display: flex;
-
   .el-input {
+    height: $useHeight;
+    line-height: $useHeight;
     width: 150px;
     margin-right: 10px;
   }
+  .el-input__inner {
+    height: $useHeight;
+  }
   .el-button {
+    height: 34px;
+    min-height: 34px;
     margin-right: 10px;
+    padding: 5px 20px;
   }
 
 }
 
 .app-container-body {
-  padding: 10px 0;
-}
-.app-container-footer {
-  display: flex;
-  justify-content: flex-end;
-  margin-right: 15px;
+  background: $layoutBackground;
+  @include layoutShadow;
+  margin-top: 15px;
+  padding: 10px;
+  .table-footer {
+    margin-top: 10px;
+    display: flex;
+    justify-content: flex-end;
+  }
 }

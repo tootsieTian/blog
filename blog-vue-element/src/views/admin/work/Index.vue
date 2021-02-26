@@ -24,6 +24,10 @@
                         label="内容">
                 </el-table-column>
                 <el-table-column
+                        prop="img"
+                        label="图片">
+                </el-table-column>
+                <el-table-column
                         prop="createtime"
                         label="创建时间">
                 </el-table-column>
@@ -43,15 +47,17 @@
   import { defineComponent, reactive } from 'vue'
   import '@/styles/admin/index.scss'
   export default defineComponent({
-    name: "Article",
+    name: "Work",
     setup() {
       const tableData = reactive([{
         createtime: '2016-05-02',
         title: '王小虎',
+        img: '111',
         content: '上海市普陀区金沙江路 1518 弄'
       }, {
         createtime: '2016-05-04',
         title: '王小虎',
+        img: '111',
         content: '上海市普陀区金沙江路 1517 弄'
       }])
       return {

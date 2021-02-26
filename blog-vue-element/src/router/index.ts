@@ -36,6 +36,24 @@ const routes: Array<RouteRecordRaw> = [
           requiresAuth: true,
         },
       },
+      {
+        path: '/comment',
+        name: 'Comment',
+        component: () => import('../views/admin/comment/Index.vue'),
+        meta: {
+          title: '评论管理',
+          requiresAuth: true,
+        },
+      },
+      {
+        path: '/work',
+        name: 'Work',
+        component: () => import('../views/admin/work/Index.vue'),
+        meta: {
+          title: '作品管理',
+          requiresAuth: true,
+        },
+      },
     ]
   },
 ]
