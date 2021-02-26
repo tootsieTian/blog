@@ -27,6 +27,15 @@ const routes: Array<RouteRecordRaw> = [
           requiresAuth: true,
         },
       },
+      {
+        path: '/article',
+        name: 'Article',
+        component: () => import('../views/admin/article/Index.vue'),
+        meta: {
+          title: '文章管理',
+          requiresAuth: true,
+        },
+      },
     ]
   },
 ]
@@ -36,13 +45,13 @@ const router = createRouter({
   routes
 })
 
-router.beforeEach((to, form, next) => {
-  if (to.matched.some(route => route.meta.requiresAuth)) {
-
-    localStorage.getItem("Authorization") ? next() : ()=>{ElMessage.error("请先登录！");next('/login')};
-  } else {
-    next();
-  }
-})
+// router.beforeEach((to, form, next) => {
+//   if (to.matched.some(route => route.meta.requiresAuth)) {
+//
+//     localStorage.getItem("Authorization") ? next() : ()=>{ElMessage.error("请先登录！");next('/login')};
+//   } else {
+//     next();
+//   }
+// })
 
 export default router

@@ -1,0 +1,27 @@
+.app-container {
+
+  margin: 15px 0 0 15px;
+}
+
+.app-container-header {
+  padding: 10px 0;
+  display: flex;
+
+  .el-input {
+    width: 150px;
+    margin-right: 10px;
+  }
+  .el-button {
+    margin-right: 10px;
+  }
+
+}
+
+.app-container-body {
+  padding: 10px 0;
+}
+.app-container-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 15px;
+}
