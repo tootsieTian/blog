@@ -36,6 +36,15 @@
                         prop="createtime"
                         label="创建时间">
                 </el-table-column>
+                <el-table-column
+                        fixed="right"
+                        label="操作"
+                        width="100">
+                    <template #default="scope">
+                        <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
+                        <el-button type="primary" @click="openForm(scope.row)">编辑</el-button>
+                    </template>
+                </el-table-column>
             </el-table>
             <div class="table-footer">
                 <el-pagination
@@ -56,10 +65,12 @@
     name: "Article",
     setup() {
       const tableData = reactive([{
+        id: '111',
         createtime: '2016-05-02',
         title: '王小虎',
         content: '上海市普陀区金沙江路 1518 弄'
       }, {
+        id: '222',
         createtime: '2016-05-04',
         title: '王小虎',
         content: '上海市普陀区金沙江路 1517 弄'
@@ -84,10 +95,14 @@
           })
       }
       const destroyArticle = () => {
+
         articleApi.destroyRes([2])
           .then((res: any) => {
             console.log(res)
           })
+      }
+      const openForm = (row: any) => {
+        console.log(row)
       }
       const checkChange = (val: any) => {
         console.log(val)
@@ -101,7 +116,8 @@
         setArticle,
         checkChange,
         updateArticle,
-        destroyArticle
+        destroyArticle,
+        openForm,
       }
     }
   })
