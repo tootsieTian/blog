@@ -25,7 +25,7 @@ class BaseService extends Service {
   }
 
   async destroy(id) {
-    const result = await this.app.mysql.delete(this.entity, { id });
+    const result = await this.app.mysql.delete(this.entity, {id});
     return result.affectedRows > 0;
   }
 }

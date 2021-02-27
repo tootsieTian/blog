@@ -9,7 +9,7 @@ export type ResponseType = 'arraybuffer' | 'blob' | 'document' | 'json' | 'text'
 export interface queryItem {
   pageSum?: any;
   pageSize?: any;
-  [index: string]: any,
+  [index: string]: any;
 }
 
 /**
@@ -19,7 +19,7 @@ export interface queryItem {
 export interface AxiosRequest {
   baseURL?: string;
   url: string;
-  query?: queryItem,
+  query?: queryItem;
   data?: any;
   params?: any;
   method?: Method;

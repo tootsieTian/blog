@@ -84,7 +84,7 @@
           })
       }
       const destroyArticle = () => {
-        articleApi.destroyRes(4) // 删除评论
+        articleApi.destroyRes([2])
           .then((res: any) => {
             console.log(res)
           })

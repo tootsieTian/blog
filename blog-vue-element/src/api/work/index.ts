@@ -1,6 +1,6 @@
 import { baseUrl, BaseApi } from '../base'
 
-const url = '/api/comment'
+const url = '/api/work'
 class CommentApi extends BaseApi{
   constructor(baseURL: string, url: string) {
     super(baseURL, url);

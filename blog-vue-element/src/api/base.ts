@@ -7,11 +7,10 @@ const baseUrl = {
   }
 }
 export { baseUrl }
-interface dataConfig {
-  [index:string]: any
+interface DataConfig {
+  [index: string]: any;
 }
-
-export class baseApi extends Http {
+export class BaseApi extends Http {
   /**
    * 构造函数
    * @param baseURL：域名
@@ -38,7 +37,7 @@ export class baseApi extends Http {
    * 添加数据
    * @param data：数据内容
    */
-  setRes(data: dataConfig){
+  setRes(data: DataConfig){
     return this.postReq({
       url: this.url,
       data
@@ -50,7 +49,7 @@ export class baseApi extends Http {
    * @param id：数据id
    * @param data：数据内容
    */
-  updateRes(id: number, data: dataConfig){
+  updateRes(id: number, data: DataConfig){
     return this.putReq({
       url: `${this.url}/${id}`,
       data
@@ -59,11 +58,15 @@ export class baseApi extends Http {
 
   /**
    * 删除数据
-   * @param id：数据id
+   * @param ids：数据id
    */
-  destroyRes(id: number){
+  destroyRes(ids: Array<number>){
+    let urlParams = '';
+    ids.forEach((item, index)=>{
+      urlParams =`${urlParams},${item}`;
+    })
     return this.deleteReq({
-      url: `${this.url}/${id}`
+      url: `${this.url}/${urlParams}`
     })
   }
 }
