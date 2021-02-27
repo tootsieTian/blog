@@ -5,10 +5,19 @@
             <el-button type="primary" >查找</el-button>
         </div>
         <div class="app-container-body">
+            <el-button type="primary" @click="setArticle">添加</el-button>
+            <el-button type="primary" @click="updateArticle">编辑</el-button>
+            <el-button type="primary" @click="destroyArticle">删除</el-button>
             <el-table
                     :data="tableData"
                     border
-                    style="width: 100%">
+                    style="width: 100%"
+                    @selection-change="checkChange"
+            >
+                <el-table-column
+                        type="selection"
+                        width="55">
+                </el-table-column>
                 <el-table-column
                         prop="id"
                         label="id"
@@ -42,6 +51,7 @@
 <script lang="ts">
   import { defineComponent, reactive } from 'vue'
   import '@/styles/admin/index.scss'
+  import articleApi from "@/api/article/index";
   export default defineComponent({
     name: "Article",
     setup() {
@@ -54,8 +64,44 @@
         title: '王小虎',
         content: '上海市普陀区金沙江路 1517 弄'
       }])
+
+      const getArticleList = () => {
+        articleApi.getRes({pageSize: 10, pageSum: 1}) // 获取评论列表
+          .then((res: any) => {
+            console.log(res)
+          })
+      }
+      const setArticle = () => {
+        articleApi.setRes({title: '测试', content: '内容', ishot: 1}) // 添加评论
+          .then((res: any) => {
+            console.log(res)
+          })
+      }
+      const updateArticle = () => {
+        articleApi.updateRes(4,{title: '测试id为1', content: '内容', ishot: 1}) // 添加评论
+          .then((res: any) => {
+            console.log(res)
+          })
+      }
+      const destroyArticle = () => {
+        articleApi.destroyRes(4) // 删除评论
+          .then((res: any) => {
+            console.log(res)
+          })
+      }
+      const checkChange = (val: any) => {
+        console.log(val)
+      }
+      const searchData = reactive([{
+
+      }])
       return {
         tableData,
+        getArticleList,
+        setArticle,
+        checkChange,
+        updateArticle,
+        destroyArticle
       }
     }
   })

@@ -10,4 +10,5 @@ module.exports = app => {
   router.resources('index', '/api/index', controller.index);
   router.resources('web', '/api/web', controller.web);
   router.resources('work', '/api/work', controller.work);
+  router.resources('comment', '/api/comment', controller.comment);
 };

@@ -42,9 +42,19 @@
 <script lang="ts">
   import { defineComponent, reactive } from 'vue'
   import '@/styles/admin/index.scss'
+  import commentApi from '@/api/comment/index'
   export default defineComponent({
     name: "comment",
     setup() {
+
+      const commentList = commentApi.getRes({pageSize: 10, pageSum: 1}).then((res: any) => { // 获取评论列表
+        console.log(res)
+      })
+      const searchData = reactive([{
+
+      }])
+
+
       const tableData = reactive([{
         createtime: '2016-05-02',
         title: '王小虎',
@@ -54,6 +64,7 @@
         title: '王小虎',
         content: '上海市普陀区金沙江路 1517 弄'
       }])
+
       return {
         tableData,
       }

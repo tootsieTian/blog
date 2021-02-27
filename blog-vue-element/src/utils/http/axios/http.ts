@@ -47,7 +47,13 @@ class Http {
   /**
    * GET类型的网络请求
    */
-  protected getReq({ baseURL, headers, url, data, params, responseType }: AxiosRequest) {
+  protected getReq({ baseURL, headers, url, data, params, responseType, query }: AxiosRequest) {
+    if(query) {
+      url = `${url}?`
+          for(const key in query){
+            url = `${url}&${key}=${query[key]}`
+          }
+    }
     return this.apiAxios({ baseURL, headers, method: 'GET', url, data, params, responseType });
   }
 

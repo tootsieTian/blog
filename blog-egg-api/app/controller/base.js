@@ -31,6 +31,7 @@ class BaseController extends Controller {
   }
   async destroy() { // DELETE请求
     const { ctx, service } = this;
+    console.log("params：",ctx.params)
     const id = ctx.params.id;
     const result = await service[this.entity].destroy(id);
     result ? this.success('删除成功') : this.error('删除失败');

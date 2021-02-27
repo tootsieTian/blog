@@ -42,7 +42,7 @@
         password: ""
       })
       const login = () => {
-        api.user.login(formData).then((res) => {
+        api.user.login(formData).then(res => {
           message(res, ()=> {
             ElMessage.success("登录成功！");
             // 将cookie存在本地
