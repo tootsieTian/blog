@@ -5,54 +5,11 @@
             <el-button type="primary">查找</el-button>
         </div>
         <div class="app-container-body">
-            <el-button type="primary" @click="setArticle">添加</el-button>
-            <el-button type="primary" @click="updateArticle">编辑</el-button>
-            <el-button type="primary" @click="destroyArticle">删除</el-button>
-            <el-table
-                    :data="tableData"
-                    border
-                    style="width: 100%"
-                    @selection-change="checkChange"
-            >
-                <el-table-column
-                        type="selection"
-                        width="55">
-                </el-table-column>
-                <el-table-column
-                        prop="id"
-                        label="id"
-                        width="180">
-                </el-table-column>
-                <el-table-column
-                        prop="title"
-                        label="标题"
-                        width="180">
-                </el-table-column>
-                <el-table-column
-                        prop="content"
-                        label="内容">
-                </el-table-column>
-                <el-table-column
-                        prop="createtime"
-                        label="创建时间">
-                </el-table-column>
-                <el-table-column
-                        fixed="right"
-                        label="操作"
-                        width="100">
-                    <template #default="scope">
-                        <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
-                        <el-button type="primary" @click="openForm(scope.row)">编辑</el-button>
-                    </template>
-                </el-table-column>
-            </el-table>
-            <div class="table-footer">
-                <el-pagination
-                        background
-                        layout="prev, pager, next"
-                        :total="10">
-                </el-pagination>
-            </div>
+            <table-item :table-data="tableData"
+                        :dialog-form-visible="dialogFormVisible"
+                        @openForm="openForm"
+                        @checkChange="checkChange"
+                        :table-header="tableHeader"></table-item>
         </div>
         <el-dialog title="添加数据" v-model="dialogFormVisible">
             <template #footer>
@@ -67,11 +24,12 @@
 
 <script lang="ts">
   import { defineComponent, reactive, ref } from 'vue'
+  import { TableItem } from '@/components/index'
   import '@/styles/admin/index.scss'
   import articleApi from "@/api/article/index";
-
   export default defineComponent({
     name: "Article",
+    components: { TableItem },
     setup() {
       const dialogFormVisible = ref(false);
       const tableData = reactive([{
@@ -85,7 +43,26 @@
         title: '王小虎',
         content: '上海市普陀区金沙江路 1517 弄'
       }]);
-
+      const tableHeader = reactive([{
+          prop: 'id',
+          label: 'id',
+          width: '180'
+        },
+        {
+          prop: 'title',
+          label: '标题',
+          width: '180'
+        },
+        {
+          prop: 'content',
+          label: '内容',
+          width: ''
+        },
+        {
+          prop: 'createtime',
+          label: '创建时间',
+          width: '180'
+        }])
       const getArticleList = () => {
         articleApi.getRes({pageSize: 10, pageSum: 1}) // 获取评论列表
           .then((res: any) => {
@@ -115,9 +92,10 @@
       /**
        * 打开表单
        * @param row：行内容
+       * @param type：表单类型
        */
-      const openForm = (row: any) => {
-        console.log(row)
+      const openForm = (row: any,type: string) => {
+        console.log("父组件：",row)
         dialogFormVisible.value = true
       }
 
@@ -128,6 +106,7 @@
       const searchData = reactive([{}])
       return {
         tableData,
+        tableHeader,
         dialogFormVisible,
         getArticleList,
         setArticle,
