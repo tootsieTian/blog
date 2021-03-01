@@ -1,6 +1,7 @@
-import message from './message/index'
+import { msgFunc, msg } from './message/index'
 
 
 export {
-  message
+  msgFunc,
+  msg
 }

@@ -60,7 +60,7 @@ export class BaseApi extends Http {
    * 删除数据
    * @param ids：数据id
    */
-  destroyRes(ids: Array<number>){
+  destroyRes(ids: number[]){
     let urlParams = '';
     ids.forEach((item, index)=>{
       urlParams =`${urlParams},${item}`;

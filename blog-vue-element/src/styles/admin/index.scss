@@ -7,6 +7,14 @@ $layoutBackground: #ffffff; // 布局背景
   box-shadow: 0 0 5px #dbdada;
 }
 
+@mixin layoutBtn {
+  height: 34px;
+  min-height: 34px;
+  margin-right: 10px;
+  padding: 5px 20px;
+}
+
+
 .app-container {
   padding: 15px 0 0 15px;
   height: 100vh;
@@ -28,11 +36,8 @@ $layoutBackground: #ffffff; // 布局背景
   .el-input__inner {
     height: $useHeight;
   }
-  .el-button {
-    height: 34px;
-    min-height: 34px;
-    margin-right: 10px;
-    padding: 5px 20px;
+  .el-button{
+    @include layoutBtn;
   }
 
 }
@@ -46,5 +51,11 @@ $layoutBackground: #ffffff; // 布局背景
     margin-top: 10px;
     display: flex;
     justify-content: flex-end;
+  }
+  .table-header {
+    margin: 5px 0 15px 0;
+    .el-button{
+      @include layoutBtn;
+    }
   }
 }

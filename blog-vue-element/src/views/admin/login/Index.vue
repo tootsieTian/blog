@@ -28,7 +28,7 @@
 
 <script lang="ts">
   import { defineComponent, reactive } from 'vue'
-  import { message } from '@/utils/index'
+  import { msgFunc } from '@/utils/index'
   import api from '@/api/index'
   import { ElMessage } from "element-plus";
   import { useRouter } from "vue-router";
@@ -43,7 +43,7 @@
       })
       const login = () => {
         api.user.login(formData).then(res => {
-          message(res, ()=> {
+          msgFunc(res, ()=> {
             ElMessage.success("登录成功！");
             // 将cookie存在本地
             localStorage.setItem("Authorization", res.data);
