@@ -13,13 +13,13 @@ class BaseController extends Controller {
     const list = await service[this.entity].list(isNaN(pageSum) ? 1 : parseInt(pageSum),
       isNaN(pageSize) ? 10 : parseInt(pageSize), where);
 
-    this.success(list);
+    this.success('', list);
   }
   async create() { // POST请求
     const { ctx, service } = this;
     const entity = ctx.request.body;
     const result = await service[this.entity].create(entity);
-    result ? this.success('创建成功') : this.error('创建失败');
+    result ? this.success('创建成功', {}) : this.error('创建失败');
   }
   async update() { // PUT请求
     const { ctx, service } = this;
@@ -27,19 +27,20 @@ class BaseController extends Controller {
     const entity = ctx.request.body; // post参数
     entity.id = id;
     const result = await service[this.entity].update(entity);
-    result ? this.success('更新成功') : this.error('更新失败');
+    result ? this.success('更新成功', {}) : this.error('更新失败');
   }
   async destroy() { // DELETE请求
     const { ctx, service } = this;
-    console.log("params：",ctx.params)
-    const id = ctx.params.id.split(",");
-    
+    console.log('params：', ctx.params);
+    const id = ctx.params.id.split(',');
+
     const result = await service[this.entity].destroy(id);
-    result ? this.success('删除成功') : this.error('删除失败');
+    result ? this.success('删除成功', {}) : this.error('删除失败');
   }
-  success(data) {
+  success(msg, data) {
     this.ctx.body = {
       code: 0,
+      msg,
       data,
     };
   }

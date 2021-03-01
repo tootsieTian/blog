@@ -24,16 +24,16 @@
         </div>
         <el-dialog title="添加数据" v-model="dialogShow">
             <el-form :model="formData">
-                <el-form-item label="活动名称" :label-width="200">
-                    <el-input v-model="formData.title" autocomplete="off"></el-input>
+                <el-form-item label="标题" :label-width="200">
+                    <el-input v-model="formData.title" :disabled="DFooterShow" autocomplete="off"></el-input>
                 </el-form-item>
-                <el-form-item label="活动名称" :label-width="200">
-                    <el-input v-model="formData.content" autocomplete="off"></el-input>
+                <el-form-item label="内容" :label-width="200">
+                    <el-input type="textarea" v-model="formData.content" :disabled="DFooterShow" autocomplete="off"></el-input>
                 </el-form-item>
             </el-form>
             <template #footer>
-                <span class="dialog-footer">
-                  <el-button @click="dialogShow=false">取 消</el-button>
+                <span class="dialog-footer" v-if="!DFooterShow">
+                  <el-button @click="dialogShow=false" >取 消</el-button>
                   <el-button type="primary" @click="confirm()">确 定</el-button>
                 </span>
             </template>
@@ -56,6 +56,7 @@
       TableItem
     },
     setup() {
+      const DFooterShow = ref(false); // 弹窗按钮
       const dialogShow = ref(false);  // 弹窗控制
       const dialogType = ref("");  // 弹窗类型
       const tableData = ref([{}]);  // 表格数据
@@ -99,21 +100,30 @@
       };
       getArticleList();
 
+      const clearFormData = () => {
+        formData.title = ""
+        formData.content = ""
+      }
       /**
        * 添加数据
        **/
       const setArticle = () => {
         articleApi.setRes(formData)
           .then((res: any) => {
-            console.log(res)
+            msgFunc(res, () => {
+              dialogShow.value = false
+              ElMessage.success("添加成功！")
+              getArticleList()
+              clearFormData()
+            })
           })
       };
 
       /**
        * 更新数据
        **/
-      const updateArticle = () => {
-        articleApi.updateRes(4, {title: '测试id为1', content: '内容', ishot: 1}) // 添加评论
+      const updateArticle = (row: any) => {
+        articleApi.updateRes(row.id, row) // 添加评论
           .then((res: any) => {
             console.log(res)
           })
@@ -134,19 +144,34 @@
 
       const confirm = () => {
         if(dialogType.value === 'add'){
+
           setArticle()
         }else if(dialogType.value === 'edit'){
-          updateArticle()
+          updateArticle(formData)
         }
       }
+
       /**
        * 打开表单
        * @param row：行内容
        * @param type：表单类型
        */
-      const openForm = (type: string, row?: []) => {
+      const openForm = (type: string, row?: any) => {
         dialogType.value = type
         dialogShow.value = true
+        console.log(type, row)
+        if(dialogType.value==='view'){
+          DFooterShow.value = true
+          formData.title = row.title
+          formData.content = row.content
+        }else if(dialogType.value==='edit'){
+          DFooterShow.value = false
+          formData.title = row.title
+          formData.content = row.content
+        }else if(dialogType.value==='add'){
+          formData.title = ""
+          formData.content = ""
+        }
       }
 
       /**
@@ -157,12 +182,11 @@
           return item.id
         })
       }
-
-      const searchData = reactive([{}])
       return {
         tableData,
         formData,
         tableHeader,
+        DFooterShow,
         dialogShow,
         dialogType,
         getArticleList,

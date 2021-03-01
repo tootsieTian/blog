@@ -19,7 +19,7 @@ class UserController extends BaseController {
     if (result && result.length > 0) {
       const u = Object.assign({}, result[0]);
       delete u.password;
-      this.success(sign(u, config.jwtSecret, { expiresIn: '30day' })); // 返回token，token为明文，不要把密码放入token
+      this.success('', sign(u, config.jwtSecret, { expiresIn: '30day' })); // 返回token，token为明文，不要把密码放入token
     } else {
       this.error('登录失败！');
     }

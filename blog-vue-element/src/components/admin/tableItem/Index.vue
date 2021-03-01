@@ -21,8 +21,8 @@
                 label="操作"
                 width="100">
             <template #default="scope">
-                <el-button @click="clickHandler(scope.row, 'view')" type="text" size="small">查看</el-button>
-                <el-button @click="clickHandler(scope.row, 'edit')"  type="text" size="small">编辑</el-button>
+                <el-button @click="clickHandler('view',scope.row)" type="text" size="small">查看</el-button>
+                <el-button @click="clickHandler('edit',scope.row)"  type="text" size="small">编辑</el-button>
             </template>
         </el-table-column>
     </el-table>
@@ -57,13 +57,13 @@
     },
     emits: ['openForm', 'checkChange'],
     setup(props, content) {
-      const { dialogFormVisible, tableHeader } = toRefs(props)
+      const { tableHeader } = toRefs(props)
       console.log(tableHeader.value)
       const checkChange = (val: any) => {
         content.emit('checkChange', val)
       }
-      const clickHandler = (row: any, type: typeForm) => {
-        content.emit('openForm', row ,type)
+      const clickHandler = (type: string, row: {}) => {
+        content.emit('openForm', type, row)
       }
       return {
         checkChange,
