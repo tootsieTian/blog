@@ -3,6 +3,14 @@ import { ElMessage } from 'element-plus'
 
 const routes: Array<RouteRecordRaw> = [
   {
+    path: '/',
+    name: 'Index',
+    component: () => import('../views/index/Index.vue'),
+    meta: {
+      title: '首页',
+    }
+  },
+  {
     path: '/login',
     name: 'Login',
     component: () => import('../views/admin/login/Index.vue'),
