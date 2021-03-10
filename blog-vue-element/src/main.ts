@@ -5,6 +5,7 @@ import store from './store'
 import ElementPlus from 'element-plus'
 import 'element-plus/lib/theme-chalk/index.css'
 import 'normalize.css/normalize.css'
+import '@/assets/icon/iconfont'
 const app = createApp(App);
 app.use(store);
 // 挂载路由
